@@ -1,7 +1,20 @@
+import streamlit as st
 from bs4 import BeautifulSoup 
 import cloudscraper 
 import matplotlib.pyplot as plt
 
+def fetch_data(url):
+    scraper = cloudscraper.create_scraper(delay=10, browser="chrome")
+    try:
+        content = scraper.get(url).text
+        soup = BeautifulSoup(content, 'html.parser') 
+        company = soup.find('h1', {'class':'mb-2.5 text-left text-xl font-bold leading-7 text-[#232526] md:mb-2 md:text-3xl md:leading-8 rtl:soft-ltr'}).text
+        price = soup.find('div', {'class':'text-5xl/9 font-bold text-[#232526] md:text-[42px] md:leading-[60px]'}).text 
+        return company, float(price.strip('$'))
+    except Exception as e:
+        st.error(f"Gagal mengambil konten dari {url}: {str(e)}")
+
+# List URL saham
 urls = [
     'https://www.investing.com/equities/nike',
     'https://www.investing.com/equities/coca-cola-co',
@@ -22,37 +35,26 @@ urls = [
     'https://www.investing.com/equities/visa-inc',
     'https://www.investing.com/equities/wal-mart-stores',
     'https://www.investing.com/equities/disney'
-    ]
- 
-# Buat objek scraper
-scraper = cloudscraper.create_scraper(delay=10, browser="chrome")
+]
 
-# List untuk menyimpan hasil(company, price) dari setiap URL
-data = []
+# Judul aplikasi
+st.title('Grafik Harga Saham')
 
-# Loop melalui setiap URL dan ambil kontennya
-for url in urls:
-    try:
-        # Ambil konten dari URL saat ini
-        content = scraper.get(url).text
-        soup = BeautifulSoup(content,'html.parser') 
-        company = soup.find('h1', {'class':'mb-2.5 text-left text-xl font-bold leading-7 text-[#232526] md:mb-2 md:text-3xl md:leading-8 rtl:soft-ltr'}).text
-        price = soup.find('div', {'class':'text-5xl/9 font-bold text-[#232526] md:text-[42px] md:leading-[60px]'}).text 
-        data.append((company, price))
-    except Exception as e:
-        print(f"Gagal mengambil konten dari {url}: {str(e)}")
+# Pilih saham dari dropdown
+selected_stock = st.selectbox('Pilih Saham:', urls)
 
-# Memisahkan data perusahaan dan harga saham menjadi dua list terpisah (Contoh: ['Nike Inc (NKE)', '92.15'] menjadi [Nike Inc (NKE)], [92.15])
-companies, prices = zip(*data)
+# Fetch data untuk saham yang dipilih
+company, price = fetch_data(selected_stock)
 
-# Ubah harga saham menjadi tipe numerik (hilangkan simbol '$' dan ubah ke float)
-prices = [float(price.strip('$')) for price in prices]
+# Tampilkan data
+st.write(f'Perusahaan: {company}')
+st.write(f'Harga Saham: ${price}')
 
 # Plot grafik
 plt.figure(figsize=(10, 6))
-plt.barh(companies, prices, color='#398bff')
+plt.barh(company, price, color='#398bff')
 plt.xlabel('Harga Saham ($)')
 plt.ylabel('Perusahaan')
 plt.title('Harga Saham Perusahaan')
 plt.gca().invert_yaxis()
-plt.show()
+st.pyplot(plt)
