@@ -27,7 +27,10 @@ urls = [
 ]
 
 # Judul aplikasi
-st.title('Grafik Saham 2024')
+st.title('Saham 2024')
+
+# Deskripsi
+st.write(f'Visualisasi data saham dengan menggunakan data dari www.investing.com')
 
 # Buat objek scraper
 scraper = cloudscraper.create_scraper(delay=10, browser="chrome")
@@ -62,13 +65,8 @@ for url in urls:
                     soup1 = BeautifulSoup(content1, 'html.parser')
                     # print(f"Sukses mengambil konten dari {profile_url}")
                     # Mendapatkan data yang di inginkan
-                    # nama_company = soup1.find('h2', {'class': 'float_lang_base_1 inlineblock'}).text
                     deskripsi = soup1.find('p', {'id': 'profile-fullStory-showhide'}).text
-                    # link_website = soup1.find('span', {'class': 'float_lang_base_2.text_align_lang_base_2 dirLtr'}).text
-                    # print(f"Nama Perusahaan: {company}")
-                    # print(f"Deskripsi Perusahaan: {deskripsi_company}")
-                    # print(f"Harga Saham Perusahaan: {price}")
-                    # detail.append(deskripsi_company)
+                    # print(f"Deskripsi Perusahaan: {deskripsi}")
             except Exception as r:
                 print(f"Gagal mengambil konten dari {profile_url}: {str(r)}")
         data.append((company, price, deskripsi))
@@ -84,23 +82,26 @@ prices = [float(price.strip('$')) for price in prices]
 # Plot grafik
 plt.figure(figsize=(10, 6))
 plt.barh(companies, prices, color='#398bff')
-plt.xlabel('Harga Saham ($)')
-plt.ylabel('Perusahaan')
-plt.title('Grafik Saham Perusahaan 2024')
+plt.xlabel('Stock Price ($)')
+plt.ylabel('Company')
+plt.title('Company Stock Chart 2024')
 plt.gca().invert_yaxis() 
 st.pyplot(plt)
 
 # Judul aplikasi
-st.title('Detail Perusahaan')
+st.title('Company Profile')
 
 # Pilih saham dari dropdown
-selected_stock = st.selectbox('Pilih Saham:', companies)
+selected_stock = st.selectbox('Choose Company:', companies)
 
 # Temukan indeks saham yang dipilih di daftar perusahaan
 index = companies.index(selected_stock)
 
 # Tampilkan detail perusahaan yang dipilih
-st.write(f'Nama Perusahaan: {companies[index]}')
-st.write(f'Harga Saham: ${prices[index]}')
-st.write(f'Deskripsi Perusahaan:')
+st.write(f'Company name: {companies[index]}')
+st.write(f'Stock Price: ${prices[index]}')
+st.write(f'Company Description:')
 st.write(descriptions[index])
+
+st.write(f'Nama : Ilham Berlian Oktavio')
+st.write(f'NPM : 21082010034')
