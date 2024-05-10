@@ -2,7 +2,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import openpyxl
-import pyttsx3
+from gtts import gTTS
+import io
+import base64
 
 # Judul aplikasi
 st.title('Saham 2024')
@@ -12,9 +14,6 @@ st.write(f'Visualisasi data saham dengan menggunakan data dari www.investing.com
 
 # Membaca file excel
 baca = pd.read_excel("Saham 2024.xlsx")
-
-# Inisialisasi Engine Text-to-Speech
-engine = pyttsx3.init()
 
 # Ambil data perusahaan dan harga dari hasil
 companies = baca['Company'].tolist()
@@ -43,15 +42,18 @@ index = companies.index(selected_stock)
 st.write(f'Company name: {companies[index]}')
 st.write(f'Stock Price: ${prices[index]}')
 st.write(f'Company Description:')
-# Tampilkan tombol
-if st.button("Baca Deskripsi"):
-    # try:
-    #     # Menggunakan engine Text-to-Speech untuk membaca deskripsi
-    #     engine.say(descriptions[index])
-    #     engine.runAndWait()
-    # except Exception as e:
-    #     st.error(f"Error: {e}")
-    pass
 st.write(descriptions[index])
+
+# Fungsi untuk mengonversi teks menjadi suara
+def text_to_speech(text):
+    tts = gTTS(text=text, lang='en')
+    speech = io.BytesIO()
+    tts.write_to_fp(speech)
+    return speech.getvalue()
+
+# Tambahkan tombol untuk membaca deskripsi perusahaan
+if st.button("Baca Deskripsi"):
+    speech_bytes = text_to_speech(descriptions[index])
+    st.audio(speech_bytes, format='audio/mp3')
 
 st.write(f'Created by Ilham Berlian Oktavio')
