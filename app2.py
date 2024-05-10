@@ -23,9 +23,9 @@ plt.figure(figsize=(10, 6))
 plt.barh(companies, prices, color='#398bff')
 plt.xlabel('Harga Saham ($)')
 plt.ylabel('Perusahaan')
-plt.title('Harga Saham Perusahaan')
-plt.gca().invert_yaxis()
-plt.show()
+plt.title('Grafik Saham Perusahaan 2024')
+plt.gca().invert_yaxis() 
+st.pyplot(plt)
 
 # Judul aplikasi
 st.title('Company Profile')
