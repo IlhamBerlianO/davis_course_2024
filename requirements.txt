@@ -6,3 +6,5 @@ xlsxwriter
 pandas
 scrapy
 openpyxl
+pyttsx3
+time
