@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-import openpyxl
 from gtts import gTTS
 from googletrans import Translator
 import io
@@ -20,6 +19,9 @@ baca = pd.read_excel("Saham 2024.xlsx")
 companies = baca['Company'].tolist()
 prices = baca['Price'].tolist()
 descriptions = baca['Description'].tolist()
+
+# Inisialisasi objek Translator
+translator = Translator()
 
 # # Plot grafik
 plt.figure(figsize=(10, 6))
@@ -51,9 +53,6 @@ def text_to_speech(text):
     speech = io.BytesIO()
     tts.write_to_fp(speech)
     return speech.getvalue()
-
-# Inisialisasi objek Translator
-translator = Translator()
 
 # Tambahkan tombol untuk merubah bahasa untuk deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
