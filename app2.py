@@ -52,6 +52,9 @@ def text_to_speech(text):
     tts.write_to_fp(speech)
     return speech.getvalue()
 
+# Inisialisasi objek Translator
+translator = Translator()
+
 # Tambahkan tombol untuk merubah bahasa untuk deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
