@@ -2,7 +2,6 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 from gtts import gTTS
-from deep_translator import GoogleTranslator
 import io
 import base64
 
@@ -19,9 +18,6 @@ baca = pd.read_excel("Saham 2024.xlsx")
 companies = baca['Company'].tolist()
 prices = baca['Price'].tolist()
 descriptions = baca['Description'].tolist()
-
-# Inisialisasi objek Translator
-translator = GoogleTranslator(source='en', target='id')
 
 # # Plot grafik
 plt.figure(figsize=(10, 6))
@@ -64,7 +60,7 @@ def text_to_speech(text):
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    speech_bytes = text_to_speech(descriptions_id[index])
+    speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
     
 st.write(f'Created by Ilham Berlian Oktavio')
