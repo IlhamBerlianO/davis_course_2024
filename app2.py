@@ -30,18 +30,18 @@ plt.gca().invert_yaxis()
 st.pyplot(plt)
 
 # Judul aplikasi
-st.title('Company Profile')
+st.title('Profil Perusahaan')
 
 # Pilih saham dari dropdown
-selected_stock = st.selectbox('Choose Company:', companies)
+selected_stock = st.selectbox('Pilih Perusahaan:', companies)
 
 # Temukan indeks saham yang dipilih di daftar perusahaan
 index = companies.index(selected_stock)
 
 # Tampilkan detail perusahaan yang dipilih
-st.write(f'Company name: {companies[index]}')
-st.write(f'Stock Price: ${prices[index]}')
-st.write(f'Company Description:')
+st.write(f'Nama Perusahaan: {companies[index]}')
+st.write(f'Harga Saham: ${prices[index]}')
+st.write(f'Deskripsi Perusahaan:')
 st.write(descriptions[index])
 
 # Fungsi untuk mengonversi teks menjadi suara
