@@ -45,22 +45,14 @@ st.write(descriptions[index])
 
 # Fungsi untuk merubah teks deskripsi menjadi suara
 def text_to_speech(text):
-    tts = gTTS(text=text, lang='en')  # Menggunakan gTTS untuk mengonversi teks ke suara dalam bahasa Inggris
+    tts = gTTS(text=text, lang='id')  # Menggunakan gTTS untuk mengonversi teks ke suara dalam bahasa Inggris
     speech = io.BytesIO()
     tts.write_to_fp(speech)
     return speech.getvalue()
-
-# # Tambahkan tombol untuk merubah bahasa untuk deskripsi perusahaan
-# if st.button("Translate ke Indonesia"):
-#     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
-#     description_id = translator.translate(descriptions[index])
-#     # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-#     st.write(f'Company Description (Indonesian):')
-#     st.write(description_id)
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
     speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
-    
+
 st.write(f'Created by Ilham Berlian Oktavio')
