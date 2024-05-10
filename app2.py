@@ -57,7 +57,7 @@ if st.button("Translate ke Indonesia"):
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    speech_bytes = gTTS(text=descriptions[index], lang='en')
+    speech_bytes = text_to_speech(descriptions_id[index])
     st.audio(speech_bytes, format='audio/mp3')
-
+    
 st.write(f'Created by Ilham Berlian Oktavio')
