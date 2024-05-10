@@ -63,9 +63,8 @@ def text_to_speech(text):
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
+    time.sleep(1)
     speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
-
-
 
 st.write(f'Created by Ilham Berlian Oktavio')
