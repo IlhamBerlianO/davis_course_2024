@@ -66,6 +66,13 @@ if st.button("Translate ke Indonesia"):
     # Tampilkan deskripsi perusahaan yang telah diterjemahkan
     st.write(f'Company Description (Indonesian):')
     st.write(description_id)
+    
+    def text_to_speech(text):
+    tts = gTTS(text=text, lang='id')  # Menggunakan gTTS untuk mengonversi teks ke suara dalam bahasa Inggris
+    speech = io.BytesIO()
+    tts.write_to_fp(speech)
+    return speech.getvalue()
+    
     # Tambahkan tombol untuk membaca deskripsi perusahaan
     if st.button("Baca Deskripsi Indonesia"):
         speech_bytes1 = text_to_speech(description_id)
