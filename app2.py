@@ -5,6 +5,7 @@ from gtts import gTTS
 from deep_translator import GoogleTranslator
 import io
 import base64
+import time
 
 # Judul aplikasi
 st.title('Saham 2024')
