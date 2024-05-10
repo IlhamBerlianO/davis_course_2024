@@ -46,17 +46,6 @@ st.write(f'Deskripsi Perusahaan:')
 # Inisialisasi objek Translator
 translator = GoogleTranslator(source='en', target='id')
 
-# Buat dua tombol bersebelahan menggunakan kolom
-col1, col2 = st.columns([1,1])
-
-# Tambahkan tombol pertama di kolom pertama
-with col1:
-    button1 = st.button("Tombol 1")
-
-# Tambahkan tombol kedua di kolom kedua
-with col2:
-    button2 = st.button("Tombol 2")
-
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
