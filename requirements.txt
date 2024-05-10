@@ -6,4 +6,3 @@ pandas
 scrapy
 openpyxl
 gtts
-deep-translator
