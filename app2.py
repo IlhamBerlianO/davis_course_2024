@@ -61,13 +61,13 @@ translator = GoogleTranslator(source='en', target='id')
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
-    # Terjemahkan deskripsi dari bahasa Inggris ke bahasa Indonesia
-    description_id = translator.translate(descriptions[index], dest='id').text
+    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
+    description_id = translator.translate(descriptions[index])
     # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-    st.write('Deskripsi Perusahaan (Indonesia):')
+    st.write(f'Company Description (Indonesian):')
     st.write(description_id)
-    # Tambahkan tombol untuk membaca deskripsi perusahaan yang diterjemahkan
-    if st.button("Baca Deskripsi (Indonesia)"):
+    # Tambahkan tombol untuk membaca deskripsi perusahaan
+    if st.button("Baca Deskripsi"):
         speech_bytes1 = text_to_speech(description_id)
         st.audio(speech_bytes1, format='audio/mp3')
 
