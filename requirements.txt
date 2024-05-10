@@ -5,4 +5,4 @@ matplotlib
 pandas
 scrapy
 openpyxl
-pyttsx3
+gtts
