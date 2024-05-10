@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from gtts import gTTS
+from googletrans import Translator
 import io
 import base64
 
@@ -16,7 +17,7 @@ baca = pd.read_excel("Saham 2024.xlsx")
 # Ambil data perusahaan dan harga dari hasil
 companies = baca['Company'].tolist()
 prices = baca['Price'].tolist()
-descriptions = baca['Description'].tolist()
+descriptions_en = baca['Description'].tolist()
 
 # Plot grafik
 st.bar_chart(baca.set_index('Company')['Price'])
@@ -30,22 +31,36 @@ selected_stock = st.selectbox('Choose Company:', companies)
 # Temukan indeks saham yang dipilih di daftar perusahaan
 index = companies.index(selected_stock)
 
-# Tampilkan detail perusahaan yang dipilih
+# Tampilkan detail perusahaan yang dipilih dalam bahasa Inggris
 st.write(f'Company name: {companies[index]}')
 st.write(f'Stock Price: ${prices[index]}')
-st.write(f'Company Description:')
-st.write(descriptions[index])
+st.write(f'Company Description (English):')
+st.write(descriptions_en[index])
+
+# Translator
+translator = Translator()
 
 # Fungsi untuk mengonversi teks menjadi suara
-def text_to_speech(text):
-    tts = gTTS(text=text, lang='en')
+def text_to_speech(text, lang='id'):
+    tts = gTTS(text=text, lang=lang)
     speech = io.BytesIO()
     tts.write_to_fp(speech)
     return speech.getvalue()
 
+# Tambahkan tombol untuk mengubah bahasa deskripsi perusahaan
+if st.button("Translate to Indonesian"):
+    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
+    descriptions_id = [translator.translate(desc, src='en', dest='id').text for desc in descriptions_en]
+    # Update deskripsi yang ditampilkan ke bahasa Indonesia
+    st.write(f'Company Description (Indonesian):')
+    st.write(descriptions_id[index])
+
+    # Perbarui deskripsi yang ditampilkan
+    descriptions_en[index] = descriptions_id[index]
+
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    speech_bytes = text_to_speech(descriptions[index])
+    speech_bytes = text_to_speech(descriptions_en[index])
     st.audio(speech_bytes, format='audio/mp3')
 
 st.write(f'Created by Ilham Berlian Oktavio')
