@@ -47,7 +47,7 @@ st.write(f'Deskripsi Perusahaan:')
 translator = GoogleTranslator(source='en', target='id')
 
 # Buat dua tombol bersebelahan menggunakan kolom
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1,1])
 
 # Tambahkan tombol pertama di kolom pertama
 with col1:
