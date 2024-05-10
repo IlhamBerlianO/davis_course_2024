@@ -42,6 +42,21 @@ index = companies.index(selected_stock)
 st.write(f'Nama Perusahaan: {companies[index]}')
 st.write(f'Harga Saham: ${prices[index]}')
 st.write(f'Deskripsi Perusahaan:')
+
+# Inisialisasi objek Translator
+translator = GoogleTranslator(source='en', target='id')
+
+# Tambahkan tombol untuk membaca deskripsi perusahaan
+if st.button("Translate ke Indonesia"):
+    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
+    description_id = translator.translate(descriptions[index])
+    descriptions[index] = description_id
+    
+    # Tambahkan tombol untuk membaca deskripsi perusahaan
+    if st.button("Baca Deskripsi Indonesia"):
+        speech_bytes1 = text_to_speech(description_id)
+        st.audio(speech_bytes1, format='audio/mp3')
+        
 st.write(descriptions[index])
 
 # Fungsi untuk merubah teks deskripsi menjadi suara
@@ -56,20 +71,6 @@ if st.button("Baca Deskripsi"):
     speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
 
-# Inisialisasi objek Translator
-translator = GoogleTranslator(source='en', target='id')
 
-# Tambahkan tombol untuk membaca deskripsi perusahaan
-if st.button("Translate ke Indonesia"):
-    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
-    description_id = translator.translate(descriptions[index])
-    # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-    st.write(f'Company Description (Indonesian):')
-    st.write(description_id)
-    
-    # Tambahkan tombol untuk membaca deskripsi perusahaan
-    if st.button("Baca Deskripsi Indonesia"):
-        speech_bytes1 = text_to_speech(description_id)
-        st.audio(speech_bytes1, format='audio/mp3')
 
 st.write(f'Created by Ilham Berlian Oktavio')
