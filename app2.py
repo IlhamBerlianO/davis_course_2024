@@ -1,5 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import pandas as pd
 from gtts import gTTS
 import io
@@ -19,41 +18,34 @@ companies = baca['Company'].tolist()
 prices = baca['Price'].tolist()
 descriptions = baca['Description'].tolist()
 
-# # Plot grafik
-plt.figure(figsize=(10, 6))
-plt.barh(companies, prices, color='#398bff')
-plt.xlabel('Harga Saham ($)')
-plt.ylabel('Perusahaan')
-plt.title('Grafik Saham Perusahaan 2024')
-plt.gca().invert_yaxis() 
-st.pyplot(plt)
+# Plot grafik
+st.bar_chart(baca.set_index('Company')['Price'])
 
 # Judul aplikasi
-st.title('Profil Perusahaan')
+st.title('Company Profile')
 
 # Pilih saham dari dropdown
-selected_stock = st.selectbox('Pilih Perusahaan:', companies)
+selected_stock = st.selectbox('Choose Company:', companies)
 
 # Temukan indeks saham yang dipilih di daftar perusahaan
 index = companies.index(selected_stock)
 
 # Tampilkan detail perusahaan yang dipilih
-st.write(f'Nama Perusahaan: {companies[index]}')
-st.write(f'Harga Saham: ${prices[index]}')
-st.write(f'Deskripsi Perusahaan:')
+st.write(f'Company name: {companies[index]}')
+st.write(f'Stock Price: ${prices[index]}')
+st.write(f'Company Description:')
 st.write(descriptions[index])
 
-# Tambahkan tombol untuk merubah bahasa untuk deskripsi perusahaan
-if st.button("Translate ke Indonesia"):
-    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
-    description_id = translator.translate(descriptions[index])
-    # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-    st.write(f'Company Description (Indonesian):')
-    st.write(description_id)
+# Fungsi untuk mengonversi teks menjadi suara
+def text_to_speech(text):
+    tts = gTTS(text=text, lang='en')
+    speech = io.BytesIO()
+    tts.write_to_fp(speech)
+    return speech.getvalue()
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    speech_bytes = text_to_speech(descriptions_id[index])
+    speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
-    
+
 st.write(f'Created by Ilham Berlian Oktavio')
