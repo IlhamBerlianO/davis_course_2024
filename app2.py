@@ -67,7 +67,7 @@ if st.button("Translate ke Indonesia"):
     st.write(f'Company Description (Indonesian):')
     st.write(description_id)
     # Tambahkan tombol untuk membaca deskripsi perusahaan
-    if st.button1("Baca Deskripsi"):
+    if st.button("Baca Deskripsi Indonesia"):
         speech_bytes1 = text_to_speech(description_id)
         st.audio(speech_bytes1, format='audio/mp3')
 
