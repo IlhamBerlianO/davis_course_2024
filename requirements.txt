@@ -6,3 +6,4 @@ pandas
 scrapy
 openpyxl
 gtts
+googletrans
