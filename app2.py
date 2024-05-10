@@ -55,19 +55,14 @@ def text_to_speech(text):
 # Tambahkan tombol untuk merubah bahasa untuk deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
-    descriptions_id = translator.translate(descriptions[index], src='en', dest='id').text
-    # # Tampilkan deskripsi perusahaan yang telah diterjemahkan
+    description_id = translator.translate(descriptions[index], src='en', dest='id').text
+    # Tampilkan deskripsi perusahaan yang telah diterjemahkan
     st.write(f'Company Description (Indonesian):')
-    st.write(descriptions_id[index])
+    st.write(description_id)
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    # Jika deskripsi dalam bahasa Inggris
-    if "descriptions_id" not in locals():
-        speech_bytes = text_to_speech(descriptions_en[index])
-    # Jika deskripsi telah diterjemahkan ke bahasa Indonesia
-    else:
-        speech_bytes = text_to_speech(descriptions_id[index], lang='id')
+    speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
 
 st.write(f'Created by Ilham Berlian Oktavio')
