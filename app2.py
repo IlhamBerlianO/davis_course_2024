@@ -51,11 +51,6 @@ if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
     description_id = translator.translate(descriptions[index])
     descriptions[index] = description_id
-    
-    # Tambahkan tombol untuk membaca deskripsi perusahaan
-    if st.button("Baca Deskripsi Indonesia"):
-        speech_bytes1 = text_to_speech(description_id)
-        st.audio(speech_bytes1, format='audio/mp3')
         
 st.write(descriptions[index])
 
