@@ -49,7 +49,7 @@ if st.button("Translate ke Indonesia"):
     def translate_text(text):
         try:
             translator = Translator()
-            translated_text = translator.translate(text, src='en', dest='id')
+            translated_text = translator.translate(descriptions[index], src='en', dest='id')
             return translated_text.text
         except Exception as e:
             st.error(f"Error: {e}")
