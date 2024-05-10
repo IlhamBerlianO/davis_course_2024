@@ -46,12 +46,13 @@ st.write(f'Stock Price: ${prices[index]}')
 st.write(f'Company Description:')
 # Tampilkan tombol
 if st.button("Baca Deskripsi"):
-    try:
-        # Menggunakan engine Text-to-Speech untuk membaca deskripsi
-        engine.say(descriptions[index])
-        engine.runAndWait()
-    except Exception as e:
-        st.error(f"Error: {e}")
+    # try:
+    #     # Menggunakan engine Text-to-Speech untuk membaca deskripsi
+    #     engine.say(descriptions[index])
+    #     engine.runAndWait()
+    # except Exception as e:
+    #     st.error(f"Error: {e}")
+    pass
 st.write(descriptions[index])
 
 st.write(f'Created by Ilham Berlian Oktavio')
