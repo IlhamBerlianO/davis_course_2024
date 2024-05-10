@@ -57,10 +57,8 @@ if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
     descriptions_id = translator.translate(descriptions[index], src='en', dest='id').text
     # # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-    # st.write(f'Company Description (Indonesian):')
-    # st.write(descriptions_id[index])
-    # Perbarui deskripsi yang ditampilkan
-    descriptions[index] = descriptions_id
+    st.write(f'Company Description (Indonesian):')
+    st.write(descriptions_id[index])
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
