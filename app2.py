@@ -5,7 +5,6 @@ from gtts import gTTS
 from deep_translator import GoogleTranslator
 import io
 import base64
-import time
 
 # Judul aplikasi
 st.title('Saham 2024')
@@ -64,7 +63,6 @@ def text_to_speech(text):
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
-    time.sleep(1)
     speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
 
