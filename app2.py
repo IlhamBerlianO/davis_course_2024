@@ -44,15 +44,7 @@ def text_to_speech(text, lang='id'):
     return speech.getvalue()
 
 # Tambahkan tombol untuk mengubah bahasa deskripsi perusahaan
-# if st.button("Translate to Indonesian"):
-#     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
-#     descriptions_id = [translator.translate(desc, src='en', dest='id').text for desc in descriptions_en]
-#     # Update deskripsi yang ditampilkan ke bahasa Indonesia
-#     st.write(f'Company Description (Indonesian):')
-#     st.write(descriptions_id[index])
-
-#     # Perbarui deskripsi yang ditampilkan
-#     descriptions_en[index] = descriptions_id[index]
+if st.button("Translate ke Indonesia"):
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
