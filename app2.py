@@ -1,3 +1,4 @@
+import streamlit as st
 import cloudscraper 
 import xlsxwriter
 import matplotlib.pyplot as plt
