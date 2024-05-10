@@ -3,6 +3,8 @@ import xlsxwriter
 import matplotlib.pyplot as plt
 import pandas as pd
 import openpyxl
+import pyttsx3
+import time
 
 # Judul aplikasi
 st.title('Saham 2024')
@@ -12,6 +14,9 @@ st.write(f'Visualisasi data saham dengan menggunakan data dari www.investing.com
 
 # Membaca file excel
 baca = pd.read_excel("Saham 2024.xlsx")
+
+# Inisialisasi Engine Text-to-Speech
+engine = pyttsx3.init()
 
 # Ambil data perusahaan dan harga dari hasil
 companies = baca['Company'].tolist()
@@ -40,7 +45,15 @@ index = companies.index(selected_stock)
 st.write(f'Company name: {companies[index]}')
 st.write(f'Stock Price: ${prices[index]}')
 st.write(f'Company Description:')
+# Tampilkan tombol
+if st.button("Baca Deskripsi"):
+    try:
+        # Menggunakan engine Text-to-Speech untuk membaca deskripsi
+        engine.say(descriptions[index])
+        engine.runAndWait()
+        time.sleep(2)
+    except Exception as e:
+        st.error(f"Error: {e}")
 st.write(descriptions[index])
 
-st.write(f'Nama : Ilham Berlian Oktavio')
-st.write(f'NPM : 21082010034')
+st.write(f'Created by Ilham Berlian Oktavio')
