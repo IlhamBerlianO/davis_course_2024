@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import openpyxl
 from gtts import gTTS
+from googletrans import Translator
 import io
 import base64
 
@@ -55,9 +56,11 @@ def text_to_speech(text):
 if st.button("Translate ke Indonesia"):
     # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
     descriptions_id = [translator.translate(desc, src='en', dest='id').text for desc in descriptions_en]
-    # Tampilkan deskripsi perusahaan yang telah diterjemahkan
-    st.write(f'Company Description (Indonesian):')
-    st.write(descriptions_id[index])
+    # # Tampilkan deskripsi perusahaan yang telah diterjemahkan
+    # st.write(f'Company Description (Indonesian):')
+    # st.write(descriptions_id[index])
+    # Perbarui deskripsi yang ditampilkan
+    descriptions_en[index] = descriptions_id[index]
 
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Baca Deskripsi"):
