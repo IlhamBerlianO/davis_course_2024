@@ -36,9 +36,6 @@ st.write(f'Stock Price: ${prices[index]}')
 st.write(f'Company Description (English):')
 st.write(descriptions[index])
 
-# Translator
-translator = Translator()
-
 # Fungsi untuk mengonversi teks menjadi suara
 def text_to_speech(text, lang='id'):
     tts = gTTS(text=text, lang=lang)
