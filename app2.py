@@ -2,7 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 from gtts import gTTS
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 import io
 import base64
 
@@ -44,21 +44,16 @@ st.write(f'Harga Saham: ${prices[index]}')
 st.write(f'Deskripsi Perusahaan:')
 st.write(descriptions[index])
 
+# Inisialisasi objek Translator
+translator = GoogleTranslator(source='en', target='id')
+
 # Tambahkan tombol untuk membaca deskripsi perusahaan
 if st.button("Translate ke Indonesia"):
-    def translate_text(text):
-        try:
-            translator = Translator()
-            translated_text = translator.translate(text, src='en', dest='id')
-            return translated_text.text
-        except Exception as e:
-            st.error(f"Error: {e}")
-            return None
-    
-    translated_text = translate_text(descriptions[index])
-    if translated_text:
-        st.write("Terjemahan ke Bahasa Indonesia:")
-        st.write(translated_text)
+    # Translate deskripsi dari bahasa Inggris ke bahasa Indonesia
+    description_id = translator.translate(descriptions[index])
+    # Tampilkan deskripsi perusahaan yang telah diterjemahkan
+    st.write(f'Company Description (Indonesian):')
+    st.write(description_id)
 
 # Fungsi untuk merubah teks deskripsi menjadi suara
 def text_to_speech(text):
