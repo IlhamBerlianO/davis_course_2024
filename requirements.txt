@@ -7,4 +7,3 @@ pandas
 scrapy
 openpyxl
 pyttsx3
-espeak
