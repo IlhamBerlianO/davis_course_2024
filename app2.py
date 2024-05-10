@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import openpyxl
 import pyttsx3
-import time
 
 # Judul aplikasi
 st.title('Saham 2024')
@@ -51,7 +50,6 @@ if st.button("Baca Deskripsi"):
         # Menggunakan engine Text-to-Speech untuk membaca deskripsi
         engine.say(descriptions[index])
         engine.runAndWait()
-        time.sleep(2)
     except Exception as e:
         st.error(f"Error: {e}")
 st.write(descriptions[index])
