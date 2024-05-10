@@ -6,4 +6,4 @@ pandas
 scrapy
 openpyxl
 gtts
-googletrans
+deep_translator 
