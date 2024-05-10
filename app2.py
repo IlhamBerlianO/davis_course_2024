@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 from gtts import gTTS
+from googletrans import Translator
 import io
 import base64
 
@@ -43,9 +44,19 @@ st.write(f'Harga Saham: ${prices[index]}')
 st.write(f'Deskripsi Perusahaan:')
 st.write(descriptions[index])
 
+# Tambahkan tombol untuk membaca deskripsi perusahaan
+if st.button("Translate ke Indonesia"):
+    def translate_text(text):
+        translator = Translator()
+        translated_text = translator.translate(text, src='en', dest='id')
+        return translated_text.text
+    
+    translated_text = translate_text(descriptions[index])
+    print("Translated Text:", translated_text)
+
 # Fungsi untuk merubah teks deskripsi menjadi suara
 def text_to_speech(text):
-    tts = gTTS(text=text, lang='id')  # Menggunakan gTTS untuk mengonversi teks ke suara dalam bahasa Inggris
+    tts = gTTS(text=text, lang='en')  # Menggunakan gTTS untuk mengonversi teks ke suara dalam bahasa Inggris
     speech = io.BytesIO()
     tts.write_to_fp(speech)
     return speech.getvalue()
@@ -54,5 +65,7 @@ def text_to_speech(text):
 if st.button("Baca Deskripsi"):
     speech_bytes = text_to_speech(descriptions[index])
     st.audio(speech_bytes, format='audio/mp3')
+
+
 
 st.write(f'Created by Ilham Berlian Oktavio')
